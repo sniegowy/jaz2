@@ -12,6 +12,9 @@ import java.io.IOException;
 @WebFilter({"/login.jsp", "/register.jsp"})
 public class LoginAndRegistrationPageFilter implements Filter {
 
+    /**
+     * If user exists in session attributes we redirect him to the profile page.
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest httpRequest = (HttpServletRequest) request;

@@ -13,10 +13,15 @@ import java.io.IOException;
 @WebFilter("/admin")
 public class AdminPageFilter implements Filter {
 
+    /**
+     * Only user with admin role has an access to the admin page.
+     */
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+
         HttpServletRequest httpRequest = (HttpServletRequest) request;
         HttpServletResponse httpResponse = (HttpServletResponse) response;
+
         HttpSession session = httpRequest.getSession();
         User user = (User)session.getAttribute("user");
         if (user == null || !RoleEnum.ADMIN.equals(user.getRole())) {

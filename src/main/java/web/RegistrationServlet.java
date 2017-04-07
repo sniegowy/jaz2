@@ -4,6 +4,7 @@ import model.User;
 import repositories.UserRepository;
 import repositories.UserRepositoryDummyImpl;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,12 +15,18 @@ import java.io.IOException;
 @WebServlet("/register")
 public class RegistrationServlet extends HttpServlet {
 
-    private static final long serialVersionUID = 1L;
+    private UserRepository repository;
 
+    public void init(ServletConfig config) throws ServletException {
+        repository = new UserRepositoryDummyImpl();
+    }
+
+    /**
+     * Method adds new user to the repository.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         User user = retrieveUserDataFromRequest(request);
-        UserRepository repository = new UserRepositoryDummyImpl();
         repository.addUser(user);
         response.sendRedirect("success.jsp");
     }

@@ -4,6 +4,7 @@ import model.User;
 import repositories.UserRepository;
 import repositories.UserRepositoryDummyImpl;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,16 +15,31 @@ import java.io.IOException;
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
+
+    private UserRepository repository;
+
+    public void init(ServletConfig config) throws ServletException {
+        repository = new UserRepositoryDummyImpl();
+    }
+
+    /**
+     * Method finds user data by request params. When user exists his data are saved as the session attribute.
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        UserRepository repository = new UserRepositoryDummyImpl();
-        User user = repository.getUserByEmailAndPassword(request.getParameter("email"), request.getParameter("password"));
+        User user = findUserByRequestParams(request);
         if (user != null) {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
-            response.sendRedirect("profile.jsp");
+            response.sendRedirect("profile");
         } else {
             response.sendRedirect("error.jsp");
         }
+    }
+
+    private User findUserByRequestParams(HttpServletRequest request) {
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        return repository.getUserByEmailAndPassword(email, password);
     }
 }

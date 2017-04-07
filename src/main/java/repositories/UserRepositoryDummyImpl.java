@@ -59,7 +59,7 @@ public class UserRepositoryDummyImpl implements UserRepository {
                     user.setRole(RoleEnum.PREMIUM);
                 }
             } else {
-                if (RoleEnum.PREMIUM.equals(user.getRole())) {
+                if (RoleEnum.PREMIUM.equals(user.getRole()) || RoleEnum.ADMIN.equals(user.getRole())) {
                     user.setRole(RoleEnum.USER);
                 }
             }
