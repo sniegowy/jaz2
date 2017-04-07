@@ -1,0 +1,13 @@
+web\filters\LoginAndRegistrationPageFilter.class
+web\ChangePermissionServlet.class
+web\AdminServlet.class
+model\RoleEnum.class
+repositories\UserRepositoryDummyImpl.class
+web\filters\PremiumPageFilter.class
+web\RegistrationServlet.class
+web\filters\AdminPageFilter.class
+web\filters\LogoutFilter.class
+repositories\UserRepository.class
+web\filters\ProfilePageFilter.class
+web\LoginServlet.class
+model\User.class
